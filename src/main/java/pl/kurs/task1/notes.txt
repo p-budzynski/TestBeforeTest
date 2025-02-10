@@ -1,0 +1,22 @@
+Zad 1.
+Zaimplementuj proste api do zarządzania produktami - operacje POST/GET/PUT/DELETE
+Produkt posiada id, name, price, producent
+Warstaw repository(dao z entity managerem) i jakis serwis do obslugi
+
+
+API powinno posiadac metody:
+POST /products – dodanie nowego produktu
+GET /products/{id} – pobranie produktu po ID
+GET /products – pobranie wszystkich produktów
+PUT /products/{id} – aktualizacja produktu
+DELETE /products/{id} – usunięcie produktu
+
+Zaimplementuj logike walidacyjna w serwisie czyli np. podczas dodawania produktu sprawdzaj czy nazwa nie jest pusta lub null, to samo z price etc.
+Obsluga wyjątków, czyli np. jezeli ktos probuje pobrac produkt po id, ale nie ma produktu pod takim id to rzuc wyjatkiem.
+Będziesz musiał sobie przetestować działanie API w jakims programie do wywolywania API np. Postman
+Dodatkowo testy jednostkowe tam gdzie sie da, czyli np. ProductService, ProductValidator, na upartego mozesz tez napisac do controllera (chociaz tam tylko bedzie wywolanie metody serwisowej)
+Pokrycie 80% - podepnij Jacoco i wyexcluduj klasy ktorych sie nie da testowac.
+Dodatkowo fajnie jakbys zrobil klasy typu DTO, czyli zeby controller nie przyjmował bezposrednio obiektu ProductEntity tylko np. ProductDTO(data transfer object) - ktory bedzie mapowany na encje - mozesz uzyc takiej libki jak Mapstruct - tutaj moze pojawic sie problem na spięciu Mapstruct <-> Lombok, ale nie zawsze - trzeba bedzie pogooglowac ;)
+
+Dodatkowo zaimplementuj endpoint do zrzutu bazy danych:
+- POST /database-dump - zrzuci baze do pliku np. w JSON, mozesz na sztywno ustalic nazwe w application.properties :)
