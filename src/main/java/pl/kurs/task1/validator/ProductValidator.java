@@ -1,12 +1,12 @@
 package pl.kurs.task1.validator;
 
 import org.springframework.stereotype.Component;
-import pl.kurs.task1.entity.Product;
+import pl.kurs.task1.dto.ProductDto;
 
 @Component
 public class ProductValidator {
 
-    public void validate(Product product) {
+    public void validate(ProductDto product) {
         if (product.getName() == null || product.getName().trim().isEmpty()) {
             throw new IllegalArgumentException("Product name cannot be empty.");
         }

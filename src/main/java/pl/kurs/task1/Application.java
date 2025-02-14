@@ -3,6 +3,7 @@ package pl.kurs.task1;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+
 import pl.kurs.task1.entity.Product;
 import pl.kurs.task1.repository.ProductRepository;
 

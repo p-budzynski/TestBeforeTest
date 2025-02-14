@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 public class FileConfig {
 
-    @Value("${fileJson}")
-    private String fileJson;
+    @Value("${dbFileExportPath}")
+    private String dbFileExportPath;
 }
