@@ -3,7 +3,7 @@ package pl.kurs.task1.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.kurs.task1.dto.ProductDto;
-import pl.kurs.task1.dto.ProductMapper;
+import pl.kurs.task1.mapper.ProductMapper;
 import pl.kurs.task1.entity.Product;
 import pl.kurs.task1.repository.ProductRepository;
 import pl.kurs.task1.validator.ProductValidator;
