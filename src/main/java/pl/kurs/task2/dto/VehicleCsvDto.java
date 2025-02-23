@@ -19,13 +19,10 @@ public class VehicleCsvDto {
     private String model;
 
     @CsvBindByName(column = "numberofseats")
-    private int numberOfSeats;
+    private String numberOfSeats;
 
     @Override
     public String toString() {
-        return "VehicleDto: " + type +
-                ", " + brand +
-                ", " + model +
-                ", " + numberOfSeats;
+        return  type + ", " + brand + ", " + model + ", " + numberOfSeats;
     }
 }

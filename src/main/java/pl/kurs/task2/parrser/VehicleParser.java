@@ -14,8 +14,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +23,8 @@ public class VehicleParser {
     private final VehicleValidator vehicleValidator;
 
     public List<VehicleCsvDto> parseCsv(MultipartFile file) throws IOException {
+        List<VehicleCsvDto> validVehicles = new ArrayList<>();
+
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             HeaderColumnNameMappingStrategy<VehicleCsvDto> strategy = new HeaderColumnNameMappingStrategy<>();
             strategy.setType(VehicleCsvDto.class);
@@ -31,17 +33,22 @@ public class VehicleParser {
                     .withMappingStrategy(strategy)
                     .withIgnoreEmptyLine(true)
                     .withIgnoreLeadingWhiteSpace(true)
+                    .withThrowExceptions(false)
                     .build();
 
-            return csvToBean.parse()
-                    .stream()
-                    .map(csvLine -> VehicleCsvDto.builder()
-                            .type(csvLine.getType())
-                            .brand(csvLine.getBrand())
-                            .model(csvLine.getModel())
-                            .numberOfSeats(csvLine.getNumberOfSeats())
-                            .build())
-                    .collect(Collectors.toList());
+            for (VehicleCsvDto csvLine : csvToBean) {
+                if (vehicleValidator.isValid(csvLine)) {
+                    validVehicles.add(new VehicleCsvDto(
+                            csvLine.getType(),
+                            csvLine.getBrand(),
+                            csvLine.getModel(),
+                            csvLine.getNumberOfSeats()
+                    ));
+                } else {
+                    System.err.println("Invalid csv line: " + csvLine);
+                }
+            }
         }
+        return validVehicles;
     }
 }
