@@ -15,13 +15,8 @@ public class VehicleRepository {
     private final EntityManager entityManager;
 
     public void saveAll(List<Vehicle> vehicles) {
-        for (int i = 0; i < vehicles.size(); i++) {
-            entityManager.persist(vehicles.get(i));
-
-            if (i % 50 == 0) {
-                entityManager.flush();
-                entityManager.clear();
-            }
+        for (Vehicle vehicle : vehicles) {
+            entityManager.persist(vehicle);
         }
     }
 }

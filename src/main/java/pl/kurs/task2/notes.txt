@@ -17,6 +17,7 @@ Pojazdy powinny byc zapisywane w osobnych tabelach -> czyli dla przykladu w.w ma
 W przypadku gdy w csv bedzie typ ktory nie jest obslugiwany np. komputer to mozemy rzucic wyjatkiem i przerwac procesowanie, albo zalogowac i puscic dalej - zostawiam do decyzji :)
 
 Do tej pory pewnie proste :D - to dorzucimy jedną restrykcje - w przypadku dodania nowego typu pojazdu chciałbym aby nie trzeba było modyfikowac aktualnie istniejacych klas ->
-Wyobrazmy sobie ze dodajemy nowy pojazd np. cross -> powstaje nowa encja o nazwie Cross i pewnie jakis serwis do tego typu CrossService, natomiast nie ruszamy istniejacych juz klas - czyli nie modyfikujemy parsera, serwisow juz istniejacych...
+Wyobrazmy sobie ze dodajemy nowy pojazd np. cross -> powstaje nowa encja o nazwie Cross i pewnie jakis serwis do tego typu CrossService,
+natomiast nie ruszamy istniejacych juz klas - czyli nie modyfikujemy parsera, serwisow juz istniejacych...
 
 Dla uproszczenia zalozmy ze csv zawsze bedzie posiadala ten sam schemat danych tj. type,brand,model,numberofseats..
