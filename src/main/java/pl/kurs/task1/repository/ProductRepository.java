@@ -32,7 +32,7 @@ public class ProductRepository {
     }
 
     public List<Product> findAll() {
-        List<Product> products = entityManager.createQuery("SELECT p FROM Product p").getResultList();
+        List<Product> products = entityManager.createQuery("SELECT p FROM Product p", Product.class).getResultList();
         if (products.isEmpty()) {
             throw new EntityNotFoundException("No products in the database.");
         }
