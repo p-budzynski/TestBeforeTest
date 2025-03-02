@@ -35,6 +35,12 @@ public class VehicleValidatorTest {
     }
 
     @Test
+    void shouldReturnFalseWhenDtoIsNull() {
+        //when then
+        assertThat(vehicleValidator.isValid(null)).isFalse();
+    }
+
+    @Test
     void shouldReturnTrueWhenAllFieldsAreValidAndNumberOfSeatsIsPositive() {
         //given
         VehicleCsvDto dto = new VehicleCsvDto("Type", "Brand", "Model", "4");
