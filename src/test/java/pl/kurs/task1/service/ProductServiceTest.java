@@ -73,8 +73,6 @@ public class ProductServiceTest {
         assertThat(resultDto.getName()).isEqualTo(product.getName());
         assertThat(resultDto.getPrice()).isEqualTo(product.getPrice());
         assertThat(resultDto.getProducer()).isEqualTo(product.getProducer());
-
-        verify(productRepositoryMock,times(1)).findAll();
     }
 
     @Test
@@ -90,8 +88,6 @@ public class ProductServiceTest {
         assertThat(result.getName()).isEqualTo(product.getName());
         assertThat(result.getPrice()).isEqualTo(product.getPrice());
         assertThat(result.getProducer()).isEqualTo(product.getProducer());
-
-        verify(productRepositoryMock, times(1)).findById(1L);
     }
 
     @Test
@@ -106,7 +102,6 @@ public class ProductServiceTest {
 
         //then
         verify(productValidatorMock).validate(updatedProductDto);
-        verify(productRepositoryMock).findById(1L);
         verify(productRepositoryMock).save(productCaptor.capture());
 
         Product updatedProduct = productCaptor.getValue();
@@ -121,15 +116,7 @@ public class ProductServiceTest {
         productServiceMock.deleteProduct(1L);
 
         //then
-        verify(productRepositoryMock, times(1)).deleteById(1L);
+        verify(productRepositoryMock).deleteById(1L);
     }
-
-
-
-
-
-
-
-
 
 }

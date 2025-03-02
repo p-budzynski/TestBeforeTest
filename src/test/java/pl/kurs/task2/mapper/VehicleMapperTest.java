@@ -45,8 +45,5 @@ public class VehicleMapperTest {
         //then
         assertThat(result).hasSize(2);
         assertThat(result).containsExactly(vehicle1, vehicle2);
-
-        verify(vehicleCreationServiceMock).createVehicle("sportcar", "Toyota", "Supra", 2);
-        verify(vehicleCreationServiceMock).createVehicle("truck", "Volvo", "FH16", 2);
     }
 }

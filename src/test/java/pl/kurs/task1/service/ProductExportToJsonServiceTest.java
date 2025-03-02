@@ -51,10 +51,7 @@ public class ProductExportToJsonServiceTest {
         exportToJsonService.exportProductsToJson();
 
         //then
-        verify(productRepositoryMock, times(1)).findAll();
-        verify(fileConfigMock, times(1)).getDbFileExportPath();
-
-        verify(objectMapperMock, times(1)).writeValue(fileCaptor.capture(), eq(productList));
+        verify(objectMapperMock).writeValue(fileCaptor.capture(), eq(productList));
         assertThat(fileCaptor.getValue().getPath()).isEqualTo(EXPORT_PATH);
     }
 

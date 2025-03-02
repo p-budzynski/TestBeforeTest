@@ -41,7 +41,7 @@ public class ProductExportToJsonControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-        verify(exportToJsonServiceMock, times(1)).exportProductsToJson();
+        verify(exportToJsonServiceMock).exportProductsToJson();
     }
 
 }

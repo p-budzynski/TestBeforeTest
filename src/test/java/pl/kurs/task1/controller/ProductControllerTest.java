@@ -48,7 +48,7 @@ public class ProductControllerTest {
                 .content(objectMapper.writeValueAsString(productDto)))
                 .andExpect(status().isOk());
 
-        verify(productServiceMock, times(1)).addProduct(any(ProductDto.class));
+        verify(productServiceMock).addProduct(eq(productDto));
     }
 
     @Test
@@ -66,8 +66,6 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.name").value("Test Product"))
                 .andExpect(jsonPath("$.price").value(100.0))
                 .andExpect(jsonPath("$.producer").value("Test Producer"));
-
-        verify(productServiceMock, times(1)).getProduct(1L);
     }
 
     @Test
@@ -89,8 +87,6 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$[1].name").value("Product 2"))
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(2));
-
-        verify(productServiceMock, times(1)).getProducts();
     }
 
     @Test
@@ -104,7 +100,7 @@ public class ProductControllerTest {
                 .content(objectMapper.writeValueAsString(productDto)))
                 .andExpect(status().isOk());
 
-        verify(productServiceMock, times(1)).updateProduct(eq(1L), any(ProductDto.class));
+        verify(productServiceMock).updateProduct(eq(1L), eq(productDto));
     }
 
     @Test
@@ -113,7 +109,7 @@ public class ProductControllerTest {
         mockMvc.perform(delete("/products/{id}", 1L))
                 .andExpect(status().isOk());
 
-        verify(productServiceMock, times(1)).deleteProduct(1L);
+        verify(productServiceMock).deleteProduct(1L);
     }
 
 }

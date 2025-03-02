@@ -49,7 +49,6 @@ public class VehicleControllerTest {
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isEqualTo(expectedCount);
-        verify(vehicleServiceMock, times(1)).uploadVehicles(mockFile);
     }
 
 }

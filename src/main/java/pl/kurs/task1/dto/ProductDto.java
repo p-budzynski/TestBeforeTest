@@ -1,13 +1,11 @@
 package pl.kurs.task1.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Builder
 public class ProductDto {
     private Long id;

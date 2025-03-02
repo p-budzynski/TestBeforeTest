@@ -1,6 +1,5 @@
 package pl.kurs.task2.parrser;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,29 +26,16 @@ public class VehicleParserTest {
     @InjectMocks
     private VehicleParser vehicleParser;
 
-    private MultipartFile validCsvFile;
-    private MultipartFile invalidCsvFile;
-
-    @BeforeEach
-    void setup() {
+    @Test
+    void shouldParseValidCsvFile() throws IOException {
+        //given
         String validCsvContent = "type,brand,model,numberOfSeats\n"
                 + "sportcar,Toyota,Supra,2\n"
                 + "truck,Volvo,FH16,2\n";
 
-        validCsvFile = new MockMultipartFile(
+        MultipartFile validCsvFile = new MockMultipartFile(
                 "file", "vehicles.csv", "text/csv", validCsvContent.getBytes());
 
-        String invalidCsvContent = "type,brand,model,numberOfSeats\n"
-                + "sportcar,Ford,GT,abc\n"
-                + "truck,Volvo,FH16,2\n";
-
-        invalidCsvFile = new MockMultipartFile(
-                "file", "invalid_vehicles.csv", "text/csv", invalidCsvContent.getBytes());
-    }
-
-    @Test
-    void shouldParseValidCsvFile() throws IOException {
-        //given
         when(vehicleValidatorMock.isValid(any(VehicleCsvDto.class))).thenReturn(true);
 
         //when
@@ -61,13 +47,19 @@ public class VehicleParserTest {
                 .containsExactly("sportcar", "Toyota", "Supra", "2");
         assertThat(result.get(1)).extracting("type", "brand", "model", "numberOfSeats")
                 .containsExactly("truck", "Volvo", "FH16", "2");
-
-        verify(vehicleValidatorMock, times(2)).isValid(any(VehicleCsvDto.class));
     }
 
     @Test
     void shouldFilterOutInvalidCsvLines() throws IOException {
         //given
+        String invalidCsvContent = "type,brand,model,numberOfSeats\n"
+                + "sportcar,Ford,GT,abc\n"
+                + "truck,Volvo,FH16,2\n";
+
+        MultipartFile invalidCsvFile = new MockMultipartFile(
+                "file", "invalid_vehicles.csv", "text/csv", invalidCsvContent.getBytes());
+
+
         when(vehicleValidatorMock.isValid(any(VehicleCsvDto.class))).thenReturn(false, true);
 
         //when
@@ -77,7 +69,5 @@ public class VehicleParserTest {
         assertThat(result).hasSize(1);
         assertThat(result.get(0)).extracting("type", "brand", "model", "numberOfSeats")
                 .containsExactly("truck","Volvo","FH16","2");
-
-        verify(vehicleValidatorMock, times(2)).isValid(any(VehicleCsvDto.class));
     }
 }

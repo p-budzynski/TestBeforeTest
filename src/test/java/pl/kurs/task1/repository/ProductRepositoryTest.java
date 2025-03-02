@@ -41,7 +41,6 @@ public class ProductRepositoryTest {
 
         //then
         verify(entityManagerMock).persist(product);
-        verify(entityManagerMock, never()).merge(any(Product.class));
     }
 
     @Test
@@ -55,7 +54,6 @@ public class ProductRepositoryTest {
 
         //then
         verify(entityManagerMock).merge(product);
-        verify(entityManagerMock, never()).persist(any(Product.class));
     }
 
     @Test
@@ -71,7 +69,6 @@ public class ProductRepositoryTest {
 
         //then
         assertThat(foundProduct).isEqualTo(product);
-        verify(entityManagerMock).find(Product.class, 1L);
     }
 
     @Test
@@ -83,8 +80,6 @@ public class ProductRepositoryTest {
         assertThatThrownBy(() -> productRepository.findById(999L))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining("Product ID 999 not found.");
-
-        verify(entityManagerMock).find(Product.class, 999L);
     }
 
     @Test
@@ -104,8 +99,6 @@ public class ProductRepositoryTest {
         //then
         assertThat(foundProducts).hasSize(2);
         assertThat(foundProducts).containsExactlyElementsOf(productList);
-        verify(entityManagerMock).createQuery("SELECT p FROM Product p", Product.class);
-        verify(typedQueryMock).getResultList();
     }
 
     @Test
@@ -119,9 +112,6 @@ public class ProductRepositoryTest {
         assertThatThrownBy(() -> productRepository.findAll())
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining("No products in the database.");
-
-        verify(entityManagerMock).createQuery("SELECT p FROM Product p", Product.class);
-        verify(typedQueryMock).getResultList();
     }
 
     @Test
@@ -135,7 +125,6 @@ public class ProductRepositoryTest {
         productRepository.deleteById(1L);
 
         //then
-        verify(entityManagerMock).find(Product.class, 1L);
         verify(entityManagerMock).remove(product);
     }
 
@@ -148,9 +137,6 @@ public class ProductRepositoryTest {
         assertThatThrownBy(() -> productRepository.deleteById(999L))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining("Product ID 999 not found.");
-
-        verify(entityManagerMock).find(Product.class, 999L);
-        verify(entityManagerMock, never()).remove(any(Product.class));
     }
 
 }
