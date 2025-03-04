@@ -7,10 +7,11 @@ import pl.kurs.task2.entity.Vehicle;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SportCarServiceTest {
+    private static final SportCarService sportCarService = new SportCarService();
+
     @Test
     void shouldCreateSportCar() {
         //given
-        SportCarService sportCarService = new SportCarService();
         String brand = "SportCar Brand";
         String model = "SportCar Model";
         int numberOfSeats = 2;
@@ -27,9 +28,6 @@ public class SportCarServiceTest {
 
     @Test
     void shouldReturnCorrectSupportedType() {
-        //given
-        SportCarService sportCarService = new SportCarService();
-
         //when
         String result = sportCarService.getSupportedType();
 

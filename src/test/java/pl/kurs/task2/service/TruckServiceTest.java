@@ -7,10 +7,11 @@ import pl.kurs.task2.entity.Vehicle;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TruckServiceTest {
+    private static final TruckService truckService = new TruckService();
+
     @Test
     void shouldCreateTruck() {
         //given
-        TruckService truckService = new TruckService();
         String brand = "Truck Brand";
         String model = "Truck Model";
         int numberOfSeats = 40;
@@ -27,9 +28,6 @@ public class TruckServiceTest {
 
     @Test
     void shouldReturnCorrectSupportedType() {
-        //given
-        TruckService truckService = new TruckService();
-
         //when
         String result = truckService.getSupportedType();
 
